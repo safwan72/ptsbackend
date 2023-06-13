@@ -3,11 +3,6 @@ from . import models
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
-class AdminUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.User
-        fields = "__all__"
-        
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
@@ -24,6 +19,11 @@ class UserSerializer(serializers.ModelSerializer):
         )
         return user
 
+class CustomAdminCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.User
+        fields = "__all__"
+
 
 class CustomerProfileSerializer(serializers.ModelSerializer):
     user=UserSerializer(read_only=True)
@@ -31,6 +31,19 @@ class CustomerProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Customer
+        fields = ("id","user", "profile_pic","full_name","phone","address","date_joined")
+
+    def get_profile_pic(self, obj):
+        request = self.context.get('request')
+        profile_pic = obj.profile_pic.url
+        return request.build_absolute_uri(profile_pic)
+
+class AdminProfileSerializer(serializers.ModelSerializer):
+    user=UserSerializer(read_only=True)
+    profile_pic=serializers.SerializerMethodField()
+
+    class Meta:
+        model = models.Admin
         fields = ("id","user", "profile_pic","full_name","phone","address","date_joined")
 
     def get_profile_pic(self, obj):

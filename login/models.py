@@ -94,8 +94,19 @@ class Customer(Profile):
 
     def __str__(self):
         return self.user.username+" 's Profile"
-
+    class Meta:
+        verbose_name_plural = "Customer"
+        db_table = "Customer"
     
+class Admin(Profile):
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='admin_profile',)
+
+    def __str__(self):
+        return self.user.username+" 's Profile"
+
+    class Meta:
+        verbose_name_plural = "Admin"
+        db_table = "Admin"
     
 
         
@@ -104,9 +115,15 @@ class Customer(Profile):
 def create_profile(sender,instance,created,**kwargs):
     if instance.is_staff==False:
         Customer.objects.get_or_create(user=instance,full_name=instance.username)
+    else:
+        Admin.objects.get_or_create(user=instance,full_name=instance.username)
+        
+
 
 @receiver(post_save,sender=User)
 def save_profile(sender,instance,created,**kwargs):
     if instance.is_staff==False:
         instance.customer_profile.save()
+    else:
+        instance.admin_profile.save()
    

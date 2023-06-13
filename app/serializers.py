@@ -7,6 +7,12 @@ class CategorySerializer(serializers.ModelSerializer):
         model=models.Category
         fields='__all__'
         depth=1
+
+class FeedBackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=models.Feedback
+        fields='__all__'
+        depth=1
         
 class DishModelSerializer(serializers.ModelSerializer):
     dish_category=CategorySerializer(many=True,required=False)

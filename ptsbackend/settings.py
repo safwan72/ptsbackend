@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # installed apps
     "login",
     "app",
+    "order",
     # pip packages
      'rest_framework_simplejwt',
      "corsheaders",

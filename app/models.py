@@ -36,7 +36,7 @@ class DishModel(models.Model):
 
     @property
     def new_price(self):
-        return round(Decimal(self.price-(self.price*((self.discount)/100))),3) 
+        return round(Decimal(self.price-(self.discount)),3) 
     
 
     def __str__(self):
@@ -47,3 +47,12 @@ class DishModel(models.Model):
         db_table = "Dish"
         
         
+class Feedback(models.Model):
+    phone = models.CharField(max_length=20, blank=True)
+    message=models.TextField(blank=True)
+    email=models.EmailField(blank=False)
+    resolved=models.BooleanField(default=False)
+    added_at=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "FeedBack  " +str(self.id)  
