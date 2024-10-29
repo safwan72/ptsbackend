@@ -23,12 +23,12 @@ MEDIA_DIR = BASE_DIR / "media"
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = "django-insecure-cc+_^hwfpdc-@fkfvat!$bs_aed)@a3*_3pi6v@=i%ay_l4v=g"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -54,8 +54,6 @@ INSTALLED_APPS = [
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 CORS_ORIGIN_ALLOW_ALL = True
 AUTH_USER_MODEL = "login.User"
-
-
 
 
 MIDDLEWARE = [
@@ -145,7 +143,7 @@ STATIC_URL = "/static/"
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=3),
 }
-STATIC_ROOT = BASE_DIR/'staticfiles'
+STATIC_ROOT = BASE_DIR/'static'
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
